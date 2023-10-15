@@ -143,4 +143,10 @@ resetButton.addEventListener("click", function () {
   congrats.style.display = "none";
   nextButton.style.display = "none";
   rules.style.display = "none";
+  circleFlexChildren.forEach((child) => {
+    child.classList.remove("active");
+  });
+  playerFlexChildren.forEach((child) => {
+    child.classList.remove("active");
+  });
 });
