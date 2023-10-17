@@ -20,6 +20,7 @@ const rules = document.querySelector("#rules");
 const rulesClose = document.querySelector(".rules-close");
 const PlayerImg = document.querySelector(".player-img");
 const ComputerImg = document.querySelector(".computer-img");
+const againstHeading = document.querySelector(".against-heading");
 
 const COLORS = {
   paper: "#FFA943",
@@ -83,7 +84,8 @@ options.forEach((option) => {
     result.style.display = "flex";
     rules.style.display = "none";
     if (resultCopy == null) {
-      resultHeading.innerHTML = "TIE";
+      resultHeading.innerHTML = "TIE UP";
+      againstHeading.innerHTML = "";
       return;
     }
     if (!resultCopy) {
@@ -91,6 +93,7 @@ options.forEach((option) => {
         child.classList.add("active");
       });
       resultHeading.innerHTML = "YOU LOST";
+      againstHeading.innerHTML = "AGAINST PC";
       computerscore += 1;
       computerScoreElement.innerHTML = computerscore;
       localStorage.setItem("computerScore", computerscore);
@@ -99,10 +102,11 @@ options.forEach((option) => {
         child.classList.add("active");
       });
       resultHeading.innerHTML = "YOU WIN";
+      againstHeading.innerHTML = "AGAINST PC";
       playerscore += 1;
       playerScoreElement.innerHTML = playerscore;
       localStorage.setItem("playerScore", playerscore);
-      toggleVisibility("next-button");
+      if (playerscore > computerscore) toggleVisibility("next-button");
     }
   });
 });
@@ -149,4 +153,10 @@ resetButton.addEventListener("click", function () {
   playerFlexChildren.forEach((child) => {
     child.classList.remove("active");
   });
+  localStorage.setItem("playerScore", 0);
+  localStorage.setItem("computerScore", 0);
+  playerscore = 0;
+  computerscore = 0;
+  playerScoreElement.innerHTML = playerscore;
+  computerScoreElement.innerHTML = computerscore;
 });
